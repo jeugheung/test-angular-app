@@ -21,7 +21,7 @@ export class ProductService {
         fromObject: {limit: 5}
       })
     }).pipe(
-      delay(2000),
+      delay(1000),
       catchError(this.errorHandler.bind(this))
     )
   }

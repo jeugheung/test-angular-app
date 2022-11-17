@@ -11,9 +11,9 @@ import { Observable, tap } from 'rxjs';
 })
 export class AppComponent implements OnInit {
   title = 'angular app';
-  // products: IProduct[] = []
   loading = false
   products$: Observable<IProduct[]>
+  term = ''
 
   constructor(private productsService: ProductService) {
 
