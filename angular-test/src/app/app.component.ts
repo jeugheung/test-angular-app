@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from './models/product';
 import { products as data } from './data/products'
 import { ProductService } from './services/products.service';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,17 +11,19 @@ import { ProductService } from './services/products.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular app';
-  products: IProduct[] = []
-  
+  // products: IProduct[] = []
+  loading = false
+  products$: Observable<IProduct[]>
 
   constructor(private productsService: ProductService) {
 
   }
 
   ngOnInit(): void {
-    this.productsService.getAll().subscribe( products => {
-      this.products = products
-    })
+    this.loading = true
+    this.products$ = this.productsService.getAll().pipe(
+      tap(() => this.loading = false)
+    )
   }
 
 }
