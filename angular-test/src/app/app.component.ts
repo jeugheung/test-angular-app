@@ -14,11 +14,11 @@ import { ModalService } from './services/modal.service';
 export class AppComponent implements OnInit {
   title = 'angular app';
   loading = false
-  products$: Observable<IProduct[]>
+  // products$: Observable<IProduct[]>
   term = ''
 
   constructor(
-    private productsService: ProductService,
+    public productsService: ProductService,
     public modalService: ModalService
   ) {
 
@@ -26,9 +26,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.loading = true
-    this.products$ = this.productsService.getAll().pipe(
-      tap(() => this.loading = false)
-    )
+    this.productsService.getAll().subscribe(() => {
+      this.loading = false
+    })
   }
 
 }
